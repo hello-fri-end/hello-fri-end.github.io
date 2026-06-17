@@ -1,0 +1,8 @@
+pelican
+markdown
+typogrify
+pelican-neighbors
+pelican-seo
+pelican-sitemap
+pelican-webassets
+pelican-render-math

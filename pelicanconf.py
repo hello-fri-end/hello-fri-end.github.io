@@ -10,7 +10,6 @@ TIMEZONE = 'Asia/Kolkata'
 DEFAULT_LANG = 'en'
 
 #SITE STRUCTURE
-INDEX_SAVE_AS = 'blog/index.html'
 DIRECT_TEMPLATES = ['index', 'tags', 'categories', 'authors']
 
 THEME = "attila-2.0"
