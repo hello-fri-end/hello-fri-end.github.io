@@ -1,5 +1,5 @@
 AUTHOR = 'Anwaar Khalid'
-SITENAME = ''
+SITENAME = 'anwaar-khalid'
 SITEURL = 'http://localhost:8000'
 SITE_LOGO = '/assets/images/logo.png'
 COPYRIGHT_YEAR = 2026
@@ -108,12 +108,12 @@ DISQUS_SITENAME = "anwaar-khalid"
 #TAG_META = {
 #}
 
-CATEGORY_META = {
-  "compression": {
-    "cover": "https://images.unsplash.com/photo-1645113720391-279a153b4f53?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2073&q=80",
-    "description": "compresssssssssssionnneioioi"
-  },
-}
+#CATEGORY_META = {
+#  "compression": {
+#    "cover": "https://images.unsplash.com/photo-1645113720391-279a153b4f53?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2073&q=80",
+#    "description": "compresssssssssssionnneioioi"
+#  },
+#}
 
 AUTHOR_META = {
   "anwaar khalid": {
@@ -125,7 +125,7 @@ AUTHOR_META = {
     "email": "khalidanwaar0@gmail.com",
     "github": "hello-fri-end",
     "location": "Bangalore, Karnataka",
-    "bio": "To live is to learn. Hope you find something useful here :)"
+    "bio": "To live is to learn. Hope you find something interesting here :)"
   }
 }
 

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+  <title>
+Model Compression: A Survey of Techniques  </title>
+
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="origin" />
+  <meta name="generator" content="Pelican" />
+
+<link href="http://localhost:8000/2024/08/model-compression-a-survey-of-techniques/" rel="canonical" />
+  <!-- Feed -->
+
+  <link href="http://localhost:8000/theme/css/style.css" rel="stylesheet" />
+
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,300" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    .nav-footer .nav-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-footer .nav-copy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .nav-footer .nav-copy a:hover {
+      opacity: 0.8;
+      transform: translateY(-3px);
+    }
+    .nav-copy i {
+    font-size: 2.0rem;
+    }
+    .nav-copy a {
+    font-size: 3rem;
+    transition: all 0.2s ease;
+    }
+
+    .post-content a {
+      color: #2563eb;
+      text-decoration: underline;
+      text-decoration-color: currentColor;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.15em;
+      background-image: none;
+      box-shadow: none;
+      border-bottom:0;
+    }
+
+    .post-content a:hover,
+    .post-content a:focus {
+      color: #1d4ed8;
+      text-decoration-color: currentColor;
+    }
+    
+    .post-content a.headerlink {
+      color: inherit;
+      text-decoration: none;
+      opacity: 0.35;
+    }
+
+    .post-content a.headerlink:hover,
+    .post-content a.headerlink:focus {
+      opacity: 0.65;
+      color:inherit;
+      text-decoration: none;
+    }
+  </style>
+
+  <script>
+    var siteUrl = 'http://localhost:8000';
+  </script>
+
+  <script>
+    var localTheme = localStorage.getItem('attila_theme');
+    if (localTheme === 'dark') {
+      document.documentElement.classList.add('theme-dark');
+    } else if (localTheme === 'light') {
+      document.documentElement.classList.add('theme-light');
+    }
+  </script>
+
+
+
+
+
+
+    <meta name="description" content="Machine Learning (ML) has witnessed a surge in interest in recent years driven by the availability of large-scale datasets, advances in...">
+
+    <meta name="author" content="Anwaar Khalid">
+
+
+
+
+
+<!-- Open Graph -->
+<meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="anwaar-khalid"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Model Compression: A Survey of Techniques"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:description" content="Machine Learning (ML) has witnessed a surge in interest in recent years driven by the availability of large-scale datasets, advances in..."/>
+<meta prefix="og: http://ogp.me/ns#" property="og:locale" content="en_US"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:url" content="http://localhost:8000/2024/08/model-compression-a-survey-of-techniques/"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:type" content="article"/>
+<meta prefix="og: http://ogp.me/ns#" property="article:published_time" content="2024-08-10 00:00:00+05:30"/>
+<meta prefix="og: http://ogp.me/ns#" property="article:modified_time" content=""/>
+<meta prefix="og: http://ogp.me/ns#" property="article:author" content="http://localhost:8000/author/anwaar-khalid/">
+<meta prefix="og: http://ogp.me/ns#" property="article:section" content="Compression"/>
+<meta prefix="og: http://ogp.me/ns#" property="og:image" content="http://localhost:8000//assets/images/cover1.jpg">
+
+<!-- Twitter Card -->
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "name": "Model Compression: A Survey of Techniques",
+  "headline": "Model Compression: A Survey of Techniques",
+  "datePublished": "2024-08-10 00:00:00+05:30",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Anwaar Khalid",
+    "url": "http://localhost:8000/author/anwaar-khalid/"
+  },
+  "image": "http://localhost:8000/theme/images/post-bg.jpg",
+  "url": "http://localhost:8000/2024/08/model-compression-a-survey-of-techniques/",
+  "description": "Machine Learning (ML) has witnessed a surge in interest in recent years driven by the availability of large-scale datasets, advances in..."
+}
+</script>  <style>
+    .article-toc {
+      position: fixed;
+      top: 240px;
+      left: 40px;
+      z-index: 10;
+      width: 320px;
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      padding-right: 18px;
+      border-right: 1px solid rgba(0, 0, 0, 0.12);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .article-toc-title {
+      margin-bottom: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity:0.65;
+    }
+
+    .article-toc-link {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px 0;
+      color: inherit;
+      opacity: 0.55;
+      text-decoration: none;
+      transition: opacity 0.2s ease, font-weight 0.2s ease;
+    }
+
+    .article-toc-link::before{
+      content: ".";
+      opacity: 0.65;
+    }
+
+    .article-toc-link:hover,
+    .article-toc-link.active {
+      opacity: 1;
+    }
+
+    .article-toc-link.active {
+      font-weight: 700;
+    }
+
+    .article-toc-h3 {
+      padding-left: 20px;
+      font-size:14px;
+    }
+
+    @media (max-width: 1300px) {
+      .article-toc {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+
+<body class="category-template">
+
+<div class="nav-header">
+  <nav class="nav-wrapper" aria-label="Main">
+      <span class="logo">
+        <a href="http://localhost:8000" title="Home"><img src="/assets/images/logo.png" alt="Blog Logo" /></a>
+      </span>
+<ul>
+
+    <li class="nav-Home " role="presentation"><a href="/"><span>Home</span></a></li>
+    <li class="nav-Blog " role="presentation"><a href="/author/anwaar-khalid/"><span>Blog</span></a></li>
+
+</ul>
+<ul class="nav-meta">
+  <li class="nav-search" style="display: none;">
+    <a title="Search">
+      <i class="icon icon-search" aria-hidden="true"></i>
+      <span>Search</span>
+    </a>
+  </li>
+</ul>  </nav>
+
+  <div class="nav-wrapper-control">
+    <div class="inner">
+      <a class="nav-menu" role="button"><i class="icon icon-menu" aria-hidden="true"></i>Menu</a>
+      <a class="nav-search" title="Search" role="button" style="display: none;"><i class="icon icon-search" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</div>
+<div class="nav-close" role="button" aria-label="Close"></div>
+  <section id="wrapper" class="page-wrapper">
+    <!-- Progressbar -->
+    <div class="progress-container">
+      <span class="progress-bar"></span>
+    </div>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="post-header ">
+      <div class="inner">
+        <span class="post-info">
+          <span class="post-type">Article</span>
+          <span class="post-count">Compression</span>
+        </span>
+        <h1 class="post-title">Model Compression: A Survey of Techniques</h1>
+        <div class="post-meta">
+          <div class="post-meta-avatars">
+
+
+            <figure class="post-meta-avatar avatar">
+              <a class="author-avatar" href="http://localhost:8000/author/anwaar-khalid/">
+                <img class="author-profile-image" src="http://localhost:8000//assets/images/logo.png" alt="Anwaar Khalid" />
+              </a>
+            </figure>
+          </div>
+
+          <h4 class="post-meta-author">
+            Anwaar Khalid
+          </h4>
+          <time datetime="Sat 10 August 2024">Sat 10 August 2024</time>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post content -->
+    <main class="content" role="main">
+        <article class="post">
+        <div class="inner">
+          <aside class="article-toc" aria-label="Table of contents">
+            <div class="article-toc-title">On this page</div>
+            <nav id="article-toc-nav"></nav>
+          </aside>
+          <section class="post-content">
+            <p>Machine Learning (ML) has witnessed a surge in interest in recent years driven by the availability of large-scale datasets, advances in ML frameworks such as PyTorch and TensorFlow, rise of hardware accelerators (e.g., GPUs and TPUs) that enable large-scale training, and the development of increasingly powerful neural network architectures. Together, these factors have enabled the creation of highly capable models with wide ranges of applications.</p>
+<p><a href="https://arxiv.org/abs/2001.08361">Scaling Laws</a> have demonstrated model performance improves predictably with the increase in model size, dataset size and compute. This has led companies to train even larger models on massive datasets, requiring a vast amount of computational resources. As a consequence, it is expected that the cost of training models will <a href="https://mpost.io/ai-model-training-costs-are-expected-to-rise-from-100-million-to-500-million-by-2030/">rise from $100 Million to $500 Million by 2030</a>. At the same time, <a href="https://www.iea.org/">International Energy Agency</a> projects that the energy requirement for AI could <a href="https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai?utm_source=chatgpt.com">double</a> over the same period.  </p>
+<p>Beyond training costs, deployment introduces another critical constraint for these models: user experience. Models must operate with low latency &amp; high throughput to be practical in real-world applications. Therfore, it has become increasingly important to develop techniques to optimize these models and make them faster, greener and more cost efficient.</p>
+<p>Enter Model Compression.</p>
+<p><strong>Model compression</strong> refers to a set of algorithms that aim to reduce the size, memory and power requirements of neural networks without significantly impacting their accuracy. These include pruning redundant connections in the model, representing the parameters through lower precision datatypes, exploiting the structure of data to represent the layers more efficiently, or training smaller and more efficient models.</p>
+<p>The goal of this blogpost is to provide a high-level overview of these techniques.</p>
+<h2 id="quantization-making-the-most-of-approximations"><strong>Quantization: Making the most of approximations</strong><a class="headerlink" href="#quantization-making-the-most-of-approximations" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-quantization"><strong>What is Quantization?</strong><a class="headerlink" href="#what-is-quantization" title="Permanent link">&para;</a></h3>
+<p>Modern models are typically trained using mixed precision, i.e  some operations in float16 or bfloat16, and others in float32. As a rule of thumb, a model with N billion parameters requires roughly 2 × N GB of memory when stored in 16 bits. For instance, a 3B parameter model needs about 6 GB of memory, a 7B model needs 14 GBs and so on.</p>
+<p>Quantization reduces this footprint by representing weights and activations using lower-precision data types such as int8, effectively halving memory requirements. Beyond memory savings, prior work (e.g., Horowitz, 2014) has showed that integer arithmetic is generally faster and more energy-efficient than floating-point computation.</p>
+<p><img alt="Integer Quantization" src="/assets/images/quant_white_paper_formula.png">
+<em>Quantization Steps: Source: <a href="https://arxiv.org/pdf/2106.08295">A White Paper On Neural Network Quantization</a></em></p>
+<p>Quantization is therefore a key model compression technique for efficient deployment of neural networks on mobile phones and other resource-constrained edge devices.</p>
+<h3 id="what-are-the-different-types-of-quantization-algorithms"><strong>What are the different types of quantization algorithms?</strong><a class="headerlink" href="#what-are-the-different-types-of-quantization-algorithms" title="Permanent link">&para;</a></h3>
+<p>Quantization can be categorized along several axes, depending on when it is applied, how parameters are represented, and how computations are performed.</p>
+<h4 id="based-on-when-it-is-applied-during-training-or-inference"><strong>Based on when it is applied: During Training or Inference?</strong><a class="headerlink" href="#based-on-when-it-is-applied-during-training-or-inference" title="Permanent link">&para;</a></h4>
+<p><strong>Quantization aware training (QAT)</strong> simlutes inference-time quantization duering training by using quantized weights and activations in the forward pass, while using full precision weights in the backward pass. The idea is to emulate the inference time quantization error by using quantized values in the forward pass, and allowing the backward pass to update the full-precision weights such that they become more robust to quantization. This approach leads to better accuracy preservation as the model learns to adapt to the precision loss during training. </p>
+<p><img alt="An illustration of forward and backward pass for QAT" src="/assets/images/qat.webp"><br>
+<em> Quantization Aware Training. Source: <a href="https://www.researchgate.net/publication/351925867_Quantization_and_Deployment_of_Deep_Neural_Networks_on_Microcontrollers">Quantization and Deployment of Deep Neural Networks on Microcontrollers</a></em></p>
+<p>Unlike quantization aware training, where the model learns to adjust to lower precision during training, <strong>post-training quantization (PTQ)</strong> directly applies this reduction in bit width after the model has been trained. While it may not offer the same level of accuracy preservation as quantization aware training, it is widely used in practice since it doesn’t require retraining the model.</p>
+<p><img alt="PTQ Flow" src="https://pytorch.org/wp-content/uploads/2022/02/ptq-flowchart.svg"><br>
+<em>Post Training Quantization. Source: <a href="https://pytorch.org/blog/quantization-in-practice/#post-training-dynamicweight-only-quantization">Practical Quantization in PyTorch</a></em></p>
+<h4 id="based-on-how-quantization-parameters-are-applied"><strong>Based on how quantization parameters are applied:</strong><a class="headerlink" href="#based-on-how-quantization-parameters-are-applied" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Per-tensor quantization</strong>: a single scale and offset are used for the entire tensor.</li>
+<li><strong>Per-channel quantization</strong>: each channel has its own scale and offset.</li>
+<li><strong>Block quantization</strong>: groups of elements share quantization parameters.</li>
+</ul>
+<p>In general, finer-grained schemes (more parameters) yield better accuracy but introduce additional storage and compute overhead.</p>
+<h4 id="based-on-how-activations-are-quantized"><strong>Based on how activations are quantized:</strong><a class="headerlink" href="#based-on-how-activations-are-quantized" title="Permanent link">&para;</a></h4>
+<p>Since weights are always known before inference they can be quantized offline, however, activations depend on the input to the model, and there are two ways of quantizing them.</p>
+<p>In <strong>static quantization</strong>, the min and max ranges of activations are calculated using a small subset of the training data called calibration dataset which typically contains around 300-500 samples. This technique is typically used when both memory bandwidth and compute savings are important with CNNs being a typical use case.</p>
+<p>In <strong>dynamic quantization,</strong> the min-max ranges are calculated on the fly during inference. This is useful in situations where the model execution time is dominated by loading weights from memory rather than computing the matrix multiplications. For example, this is true for LSTM and Transformer type models with small batch size.</p>
+<h4 id="based-on-quantization-mapping"><strong>Based on quantization mapping:</strong><a class="headerlink" href="#based-on-quantization-mapping" title="Permanent link">&para;</a></h4>
+<p><strong>Affine quantization</strong> incorporates scaling (Scale S) and a <strong>non zero shifting(Zero Point Z)</strong> allowing for a flexible representation of a wide range of values by adjusting magnitude and position before rounding.</p>
+<p><strong>Symmetric quantization</strong> is a special case of affine quantization where-in the values are mapped to a symmetric range of values i.e [-a, a].  In this case, the integer space is usually [-127, 127], meaning that the -128 is opted out of the regular [-128, 127] signed int8 range. The reason is that having both ranges symmetric allows to have Z \= 0. While one value out of the 256 representable values is lost, it can provide a speedup since a lot of additional operations can be skipped.</p>
+<h2 id="pruning-keeping-what-matters"><strong>Pruning: Keeping what matters</strong><a class="headerlink" href="#pruning-keeping-what-matters" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-pruning"><strong>What is Pruning?</strong><a class="headerlink" href="#what-is-pruning" title="Permanent link">&para;</a></h3>
+<p>Pruning is a model compression technique that involves removing redundant or less important weights from a neural network to reduce model size and compute while preserving accuracy. Typically, weights are pruned based on critera such as magnitude or their estimated impact on the model&rsquo;s output.</p>
+<p><img alt="Pruning: before and after" src="/assets/images/pruning.png"><br>
+<em>A neural network structure, before and after pruning. Source: <a href="https://arxiv.org/abs/1506.02626">Learning both Weights and Connections for Efficient Neural Networks</a></em></p>
+<h3 id="what-are-the-different-types-of-pruning-algorithms"><strong>What are the different types of pruning algorithms?</strong><a class="headerlink" href="#what-are-the-different-types-of-pruning-algorithms" title="Permanent link">&para;</a></h3>
+<p>Pruning can also be categorized along several dimensions:</p>
+<h4 id="based-on-how-weights-are-removed"><strong>Based on how weights are removed</strong><a class="headerlink" href="#based-on-how-weights-are-removed" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Unstructured pruning</strong>: removes individual weights without constraints, resulting in sparse weight matrices. While this can achieve high compression, it often requires specialized hardware or libraries to realize speedups.</li>
+<li><strong>Structured pruning</strong>: removes entire structures such as neurons, channels, or filters. This produces dense, smaller models that are more compatible with standard hardware and typically lead to practical speedups.</li>
+<li><strong>Semi-structured pruning</strong> : imposes regular sparsity i.e  N:M patterns. For example, 2:4 sparsity, where for every group of 4 weights 2 are zeroed out. It&rsquo;s a middle ground between structured and unstructured pruning and provides real speed ups (e.g on Nvidia sparse tensor cores.)</li>
+</ul>
+<h4 id="based-on-how-pruning-is-performed"><strong>Based on how pruning is performed?</strong><a class="headerlink" href="#based-on-how-pruning-is-performed" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>One-shot pruning</strong>: removes weights in a single step. It is simple but can lead to significant accuracy degradation.</li>
+<li><strong>Iterative pruning</strong> : gradually removes weights over multiple steps, often interleaved with fine-tuning. This approach generally preserves accuracy better.</li>
+</ul>
+<h4 id="based-on-scope"><strong>Based on scope</strong><a class="headerlink" href="#based-on-scope" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Local pruning</strong>: applies pruning independently within each layer.</li>
+<li><strong>Global pruning</strong>: selects weights to prune across the entire network based on a global criterion, often leading to better overall allocation of sparsity.</li>
+</ul>
+<h2 id="tensorization-factorization-higher-ranking-doesnt-mean-better"><strong>Tensorization / Factorization: Higher ranking doesn’t mean better</strong><a class="headerlink" href="#tensorization-factorization-higher-ranking-doesnt-mean-better" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-tensorization-factorization"><strong>What is Tensorization / Factorization?</strong><a class="headerlink" href="#what-is-tensorization-factorization" title="Permanent link">&para;</a></h3>
+<p>Tensorization (or factorization) decomposes weight tensors into lower-rank components, reducing parameter count while preserving the most important structure in the data.</p>
+<p><img alt="Tucker Decomposition" src="/assets/images/tucker_decomposition.png"><br>
+<em>Visual representation of the tensorization process applied to image data. Source: <a href="https://aps.arxiv.org/pdf/1707.08308v2.pdf">Tensor Contraction and Regression Networks</a></em></p>
+<h3 id="what-are-the-different-types-of-tensorizationfactorization-algorithms"><strong>What are the different types of tensorization/factorization algorithms?</strong><a class="headerlink" href="#what-are-the-different-types-of-tensorizationfactorization-algorithms" title="Permanent link">&para;</a></h3>
+<p>There are four popular tensor decomposition algorithms which are used extensively:</p>
+<ul>
+<li><strong>Singular Value Decomposition</strong>: Decomposes a matrix A into UΣV⊤, where a low-rank approximation retains only the top singular values. This provides the most optimal rank-r approximation of the matrix (Eckart-Young theorem). It is directly applicable to 2D weights (e.g., linear layers); higher-dimensional tensors must be reshaped.</li>
+<li><strong>Canonical Polyadic Decomposition (CP or PARAFAC)</strong>: Factorizes a tensor into a sum of rank-1 tensors. Each component captures a separable pattern across all modes, enabling direct decomposition of multi-dimensional weights without flattening.</li>
+<li><strong>Tensor Train Decomposition</strong> : Represents a high-dimensional tensor as a sequence of smaller, interconnected tensors (“cores”). This factorization scales linearly with the number of dimensions, making it efficient for very large tensors.</li>
+<li><strong>Tucker Decomposition</strong>: Decomposes a tensor into a smaller core tensor multiplied by factor matrices along each mode. It can be seen as a higher-order generalization of SVD, allowing different ranks per dimension.</li>
+</ul>
+<p><img alt="CP and Tucker Decomposition" src="/assets/images/cp_and_tucker.png">
+<em>Visual representation of CP &amp; Tucker Decomposition. Source: <a href="https://www.researchgate.net/figure/Illustration-of-a-the-CP-decomposition-and-b-the-Tucker-decomposition-of-a_fig1_316632383">Research Gate</a></em></p>
+<h3 id="how-is-tensorization-used-in-practice"><strong>How is Tensorization used in practice?</strong><a class="headerlink" href="#how-is-tensorization-used-in-practice" title="Permanent link">&para;</a></h3>
+<p>Tensorly is the most popular library for working with tensor decompositions. It works with various frameworks such as Numpy, Pytorch and TensorFlow &amp; provides off-the-shelf API for all the algorithms we discussed. Extending the core features of TensorLy, TensorLy-Torch provides out-of-the-box tensor layers that can be used to implement and train tensorized networks from scratch or fine-tuning existing models by replacing the layers with their tensorized counterparts. Some examples are:</p>
+<ul>
+<li><a href="https://tensorly.org/torch/dev/user_guide/factorized_conv.html"><strong>Factorized Convolutions</strong></a>: which decompose the convolution filter into two or more smaller filters, reducing parameter count and compute. </li>
+<li><a href="https://tensorly.org/torch/dev/user_guide/tensorized_linear.html"><strong>Tensorized Linear Layers</strong></a>: where the 2D weight matrix of a linear layer is first tensorized (reshaped into a higher dimensional tensor) and then factored using a high-dimensional decomposition / tensorization method.</li>
+<li><a href="https://tensorly.org/torch/dev/user_guide/factorized_embeddings.html"><strong>Factorized Embedding Layers</strong></a>: which can act as a drop-in replacement for Pytorch’s embeddings but using efficient tensor parametrization that doesn’t need to reconstruct the table. </li>
+<li><a href="https://tensorly.org/torch/dev/user_guide/trl.html"><strong>Tensor Regression Layers</strong></a>: eliminate fully connected layers by regressing directly on convolutional activations using low-rank tensor factorization. </li>
+</ul>
+<p><insert tensor regression image here></p>
+<h2 id="knowledge-distillation-why-reinvent-the-wheel"><strong>Knowledge Distillation: Why reinvent the wheel?</strong><a class="headerlink" href="#knowledge-distillation-why-reinvent-the-wheel" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-knowledge-distillation"><strong>What is Knowledge Distillation?</strong><a class="headerlink" href="#what-is-knowledge-distillation" title="Permanent link">&para;</a></h3>
+<p>Knowledge distillation involves transferring knowledge from a complex, large model (teacher network) to a smaller, simpler neural network (student model). The goal here is to leverage the knowledge learned by a large model to train a small model to mimic it&rsquo;s behavior. </p>
+<p>At a high-level, knowledge distillation involves two main steps: </p>
+<ol>
+<li>
+<p><strong>Training the teacher model</strong>: Involves training the teacher network to a desired level of accuracy   </p>
+</li>
+<li>
+<p><strong>Training the student model</strong>: Using the outputs of the teacher network as soft targets i.e probability distributions over the classes instead of hard labels</p>
+</li>
+</ol>
+<p><img alt="Knowledge Distillation" src="/assets/images/kd.png">
+<em>An illustration of the knowledge distillation process. Source: <a href="https://arxiv.org/pdf/2006.05525.pdf">Knowledge Distillation: A Survey</a></em>  </p>
+<h3 id="what-are-the-different-types-of-knowledge-distillation-algorithms"><strong>What are the different types of knowledge distillation algorithms?</strong><a class="headerlink" href="#what-are-the-different-types-of-knowledge-distillation-algorithms" title="Permanent link">&para;</a></h3>
+<p>Knowledge Distillation techniques generally pertains to one of the following categories:</p>
+<ul>
+<li>Offline Distillation: is the most common distillation technique and involves using a trained model (teacher) to guide another smaller model (student). </li>
+<li>Online Distillation: is used when a trained teacher model isn’t available. In online distillation, both teacher and student models are updated simultaneously in a single end-to-end training process.</li>
+<li>Self Distillation: is a special case of online distillation and involves using the same model as the teacher as well as the student. In self-distillation, knowledge from deeper layers of the network is used to guide the shallow layers.</li>
+</ul>
+<h2 id="conclusion"><strong>Conclusion</strong><a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Models may keep scaling, but so do the bills. Model compression is how we push back.
+Hope this gave you a useful overview. Thank you for reading!</p>
+          </section>
+
+
+          <section class="post-footer" >
+            <div class="post-share">
+              <span class="post-info-label">Share</span>
+              <a title="Twitter" aria-label="Twitter" class="twitter" href="https://twitter.com/share?text=Model Compression: A Survey of Techniques&amp;url=http://localhost:8000/2024/08/model-compression-a-survey-of-techniques/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="icon icon-twitter" aria-hidden="true"></i><span class="hidden">Twitter</span>
+              </a>
+              <a title="Facebook" aria-label="Facebook" class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:8000/2024/08/model-compression-a-survey-of-techniques/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="icon icon-facebook" aria-hidden="true"></i><span class="hidden">Facebook</span>
+              </a>
+              <a title="LinkedIn" aria-label="LinkedIn" class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://localhost:8000/2024/08/model-compression-a-survey-of-techniques/&amp;title=Model Compression: A Survey of Techniques" onclick="window.open(this.href, 'linkedin-share', 'width=930,height=720');return false;">
+                <i class="icon icon-linkedin" aria-hidden="true"></i><span class="hidden">LinkedIn</span>
+              </a>
+              <a title="Email" aria-label="Email" class="email" href="mailto:?subject=Model Compression: A Survey of Techniques&amp;body=http://localhost:8000/2024/08/model-compression-a-survey-of-techniques/">
+                <i class="icon icon-mail" aria-hidden="true"></i><span class="hidden">Email</span>
+              </a>
+              <div class="clear"></div>
+            </div>
+
+
+            <div class="clear"></div>
+
+
+          </section>
+
+          <script type="text/javascript">
+            var disqus = 'anwaar-khalid';
+            var disqus_shortname = 'anwaar-khalid';
+            var disqus_identifier = '/2024/08/model-compression-a-survey-of-techniques/';
+            var disqus_url = 'http://localhost:8000/2024/08/model-compression-a-survey-of-techniques/';
+          </script>
+          <noscript>Please enable JavaScript to view the comments.</noscript>
+          <section class="post-comments">
+              <a id="show-disqus" class="post-comments-activate" data-disqus-identifier="/2024/08/model-compression-a-survey-of-techniques/" >Show Comments</a>
+            <div id="disqus_thread"></div>
+          </section>
+
+          <aside class="post-nav">
+            <a class="post-nav-next" href="http://localhost:8000/2026/06/integer-quantization-deep-dive/">
+              <section class="post-nav-teaser">
+                <i class="icon icon-arrow-left"></i>
+                  <h2 class="post-nav-title">Integer Quantization: Deep Dive 🤿</h2>
+                <p class="post-nav-excerpt">A lot has happened in transformer quantization over the past few years, from barely...</p>
+                <p class="post-nav-meta"><time datetime="Thu 18 June 2026">Thu 18 June 2026</time></p>
+              </section>
+            </a>
+            <a class="post-nav-prev" href="http://localhost:8000/2024/06/case-study-compressing-deepminds-repnet-for-edge-deployment/">
+              <section class="post-nav-teaser">
+                <i class="icon icon-arrow-right"></i>
+                  <h2 class="post-nav-title">Case Study: Compressing DeepMind’s RepNet for Edge Deployment</h2>
+                <p class="post-nav-excerpt">In this case study, we explore compressing neural networks for efficient deployment on...</p>
+                <p class="post-nav-meta"><time datetime="Mon 10 June 2024">Mon 10 June 2024</time></p>
+              </section>
+            </a>
+            <div class="clear"></div>
+          </aside>
+
+        </div>
+      </article>
+    </main>
+
+    <!-- Footer -->
+    <div class="nav-footer">
+      <div class="nav-wrapper">
+        <div class="nav-copy">
+
+
+              <a href="mailto:khalidanwaar0@gmail.com"><i class="fas fa-envelope"></i></a>
+
+              <a href="https://github.com/hello-fri-end" target="_blank"><i class="fab fa-github"></i></a>
+
+              <a href="https://linkedin.com/in/anwaar-khalid" target="_blank"><i class="fab fa-linkedin"></i></a>
+
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" defer></script>
+  <script src="http://localhost:8000/theme/js/jquery.fitvids.js" defer></script>
+  <script src="http://localhost:8000/theme/js/script.js" defer></script>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'anwaar-khalid';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    var viewport = $(window);
+    var post = $('.post-content');
+    // Responsive videos with fitVids
+    post.fitVids();
+
+    var mdSelector=".highlight pre";
+    var rstSelector=".highlight pre";
+    var selector=mdSelector;
+    // Format code blocks and add line numbers
+    function codestyling() {
+      $(selector).each(function(i, e) {
+        // Code highlight
+        hljs.highlightElement(e);
+        // No lines for plain text blocks
+        if (!$(this).hasClass('language-text')) {
+          var code = $(this);
+          // Calculate amount of lines
+          var lines = code.html().split(/\n(?!$)/g).length;
+          var numbers = [];
+          if (lines > 1) {
+            lines++;
+          }
+          for (i = 1; i < lines; i++) {
+            numbers += '<span class="line" aria-hidden="true">' + i + '</span>';
+          }
+          code.parent().append('<div class="lines">' + numbers + '</div>');
+        }
+      });
+    }
+
+    // Format code blocks only
+    function codestylingWithoutLineNumbers() {
+      $(selector).each(function(i, e) {
+        // Code highlight
+        hljs.highlightElement(e);
+      });
+    }
+
+    codestylingWithoutLineNumbers();
+    // Reading progress bar on window top
+    function readingProgress() {
+      var postBottom = post.offset().top + post.height();
+      var viewportHeight = viewport.height();
+      var progress = 100 - (((postBottom - (viewport.scrollTop() + viewportHeight) + viewportHeight / 3) / (postBottom - viewportHeight + viewportHeight / 3)) * 100);
+      $('.progress-bar').css('width', progress + '%');
+      (progress > 100) ? $('.progress-container').addClass('complete'): $('.progress-container').removeClass('complete');
+    }
+    readingProgress();
+    // Trigger reading progress
+    viewport.on({
+      'scroll': function() {
+        readingProgress();
+      },
+      'resize': function() {
+        readingProgress();
+      },
+      'orientationchange': function() {
+        readingProgress();
+      }
+    });
+
+    function initArticleTOC() {
+      var tocNav = $('#article-toc-nav');
+      var headings = $('.post-content').find('h2, h3');
+      if (!tocNav.length || !headings.length) {
+        $('.article-toc').hide();
+        return;
+      }
+
+      headings.each(function() {
+        var heading = $(this);
+        var id = heading.attr('id');
+        if (!id) {
+        return;
+        }
+        var level = this.tagName.toLowerCase();
+        var headingText = heading.clone();
+        headingText.find('.headerlink, script, style').remove();
+        var link = $('<a></a>').attr('href', '#' + id).addClass('article-toc-link').addClass('article-toc-' + level).html(headingText.html());
+        tocNav.append(link);
+      });
+
+      var tocLinks = $('.article-toc-link');
+      if (!tocLinks.length) {
+        $('.article-toc').hide();
+        return;
+      }
+      function setActiveLink() {
+        var currentId = null;
+        var scrollPosition = $(window).scrollTop() + 140;
+
+        headings.each(function() {
+          if ($(this).offset().top <= scrollPosition) {
+            currentId = $(this).attr('id');
+          }
+        });
+
+        tocLinks.removeClass('active');
+        if (currentId) {
+          tocLinks.filter('[href="#' + currentId + '"]').addClass('active');
+        }
+      }
+      setActiveLink();
+      $(window).on('scroll resize', setActiveLink);
+    }
+    if (document.readyState === 'complete') {
+      initArticleTOC();
+    } else {
+      $(window).on('load', initArticleTOC);
+    }
+
+      var disqus = 'anwaar-khalid';
+      $('#show-disqus').on('click', function() {
+        $.ajax({
+          type: "GET",
+          url: "//" + disqus + ".disqus.com/embed.js",
+          dataType: "script",
+          cache: true
+        });
+        $(this).parent().addClass('activated');
+      });
+  });
+</script>
+
+</body>
+</html>
