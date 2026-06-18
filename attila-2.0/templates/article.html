@@ -56,21 +56,21 @@
   <style>
     .article-toc {
       position: fixed;
-      top: 240px;
-      left: 40px;
+      top: clamp(96px, 18vh, 240px);
+      left: clamp(12px, 2.5vw, 40px);
       z-index: 10;
-      width: 320px;
+      width: clamp(180px, 18vw, 320px);
       max-height: calc(100vh - 160px);
       overflow-y: auto;
-      padding-right: 18px;
+      padding-right: clamp(10px, 1.2vw, 18px);
       border-right: 1px solid rgba(0, 0, 0, 0.12);
-      font-size: 15px;
-      line-height: 1.6;
+      font-size: clamp(12px, 0.9vw, 15px);
+      line-height: 1.55;
     }
 
     .article-toc-title {
-      margin-bottom: 16px;
-      font-size: 14px;
+      margin-bottom: clamp(10px, 1vw, 16px);
+      font-size: clamp(11px, 0.85vw, 14px);
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -80,8 +80,8 @@
     .article-toc-link {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 10px 0;
+      gap: clamp(5px, 0.6vw, 8px);
+      margin-bottom: clamp(10px, 1vw, 16px);
       color: inherit;
       opacity: 0.55;
       text-decoration: none;
@@ -103,13 +103,19 @@
     }
 
     .article-toc-h3 {
-      padding-left: 20px;
-      font-size:14px;
+      padding-left: clamp(12px, 1.25vw, 20px);
+      font-size:clamp(11px, 0.85vw, 14px);
     }
 
-    @media (max-width: 1300px) {
+    @media (max-width: 1500px) {
       .article-toc {
         display: none;
+      }
+    }
+    @media (min-width: 1501px) and (max-width: 1750px) {
+      .article-toc {
+        width: clamp(170px, 15vw, 240
+        px);
       }
     }
   </style>
