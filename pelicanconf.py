@@ -19,6 +19,8 @@ HOME_COLOR = 'black'
 STATIC_PATHS = ['assets']
 RELATIVE_URLS = False
 
+CSS_OVERRIDE = ["assets/css/custom.css"]
+
 EXTRA_PATH_METADATA = {
     'assets/images/favicon.ico': {'path': 'favicon.ico'},
 }
@@ -61,13 +63,15 @@ PAGINATION_PATTERNS = (
     (2, '{base_name}/page/{number}/', '{base_name}/page/{number}/index.html'),
 )
 
-# MARKDOWN CONFIGURATION
 MARKDOWN = {
     "extension_configs": {
-        "markdown.extensions.codehilite": {"css_class": "highlight"},
+        "markdown.extensions.codehilite": {
+            "css_class": "highlight"
+        },
         "markdown.extensions.extra": {},
         "markdown.extensions.meta": {},
         "markdown.extensions.smarty": {},
+        "markdown.extensions.admonition": {},
         "markdown.extensions.toc": {
             "title": "Table of Contents",
             "marker": "[TOC]",
