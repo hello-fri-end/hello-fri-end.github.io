@@ -13,7 +13,7 @@ DEFAULT_LANG = 'en'
 DIRECT_TEMPLATES = ['index', 'tags', 'categories', 'authors']
 
 THEME = "attila-2.0"
-HOME_COVER = '/assets/images/cover1.jpg'
+HOME_COVER = '/assets/images/cover2.jpg'
 HOME_COLOR = 'black'
 
 STATIC_PATHS = ['assets']
