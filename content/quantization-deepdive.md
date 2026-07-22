@@ -10,12 +10,12 @@ Quantization is the process of representing high-precision values using fewer bi
 
 The most immediate and easy-to-realize benefit of quantization is memory reduction. As a rule of thumb, a model with N billion parameters requires roughly **2 × N GB** of memory when stored in 16-bit precision. Quantizing to 8-bit or 4-bit reduces this footprint by 2× and 4×, respectively.
 
-There is also a hardware advantage. In 2014, Mark Horowitz, from Stanford University published a paper [Computing's Energy Problem](https://gwern.net/doc/cs/hardware/2014-horowitz-2.pdf) which studied fp operations vs integer operations:
+There is also a hardware advantage. In 2014, Mark Horowitz, from Stanford University, published [Computing's Energy Problem](https://gwern.net/doc/cs/hardware/2014-horowitz-2.pdf), which measured the energy cost of fp operations vs. integer operations:
 
- ![Energy Consumption: Integer vs Floating Point](/assets/images/Horowitz.png)
- *Energy Costs for various operations on a 45nm CMOS node. Source: [Computing's Energy Problem](https://gwern.net/doc/cs/hardware/2014-horowitz-2.pdf)*
+ ![Energy & Area Consumption: Integer vs Floating Point](/assets/images/Horowitz.png)
+ *Energy costs for various operations in a 45nm CMOS process. Source: [Computing's Energy Problem](https://gwern.net/doc/cs/hardware/2014-horowitz-2.pdf)*
 
-So, integer arithmetic consumes **lesser energy**, specifically int8 add consumes 30x less energy than fp32 add & int8 mul consumes 18x less energy than fp32 mul. Lower precision hardware is also **faster** & **consumes lesser silicon area** than floating point.
+So, integer arithmetic consumes **less energy**: int8 add uses 30x less energy than fp32 add, and int8 mul uses 18.5x less energy than fp32 mul. Integer hardware also **takes up less silicon area** than floating point: for the same 45nm TSMC process, int add requires 116x less area and int mul requires 27x less area than the corresponding fp operations.
 
 How do these benefits translate to real-world gains? It depends on the bottleneck:
 
