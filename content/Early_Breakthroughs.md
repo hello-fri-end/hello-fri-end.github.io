@@ -1,6 +1,7 @@
 title: Early Breakthroughs in Transformer Quantization
 date: 2026-07-16 
 category: Quantization
+Tags: Quantization, Integer Quantization, Deep Learning, Inference, Model Compression, Outliers
 
 
 In my [previous blogpost](https://hello-fri-end.github.io/2026/07/why-do-transformers-have-outliers/), we discussed in detail the outlier problem in transformers. We realized that outliers are not just random noise - they encode important directional information that lets the model selectively skip updating token representations. But the same property makes transformers notoriously difficult to quantize. In this post, we'll discuss why the presence of outliers makes quantization difficult and some early techniques that made quantizing large transformer models possible. 

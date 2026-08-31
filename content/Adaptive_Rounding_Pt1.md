@@ -1,6 +1,7 @@
 title: Part 1: Adaptive Rounding: Adaround
 date: 2026-08-06 
 category: Quantization
+Tags: Quantization, Integer Quantization, Deep Learning, Adaround, Model Compression, Outliers
 
 Adaptive rounding techniques are one of the best ways to get more accuracy from quantization with the same bitwidth. In this series we'll cover the evolution of adaptive rounding techniques starting from Adaround which delivers excellent quality with small models to more recent ones like GPTQ, OmniQuant, FlexRound which extend the idea to models with billions of parameters. 
 First, let's start with building some intuition about what adaptive rounding is and why rounding direction matters at all.
@@ -379,10 +380,18 @@ implementing AdaRound from scratch and applying it to a simple MLP. I'd highly r
 AdaRound delivers excellent results across a wide range of models, from CNNs to Transformers. Its main drawback is convergence speed: AIMET's default configuration runs 10K optimization iterations per layer for 8-bit weight quantization, and 15K iterations per layer for anything below 8-bit [[1]](https://quic.github.io/aimet-pages/releases/1.28.0/api_docs/torch_adaround.html). This makes AdaRound completely impractical for large models and where modern adaptive rounding techniques such as GPTQ step in. I'll cover these modern techniques in future posts. 
 
 ## Conclusion
+Thank you for reading! I hope the post helped demystify AdaRound and the 
+second-order foundations of adaptive rounding. AdaRound showed that rounding 
+direction matters and that the Hessian governs quantization damage, but 
+computing it faithfully is expensive. In the next post, we'll look at OBQ, 
+which found an efficient proxy for the Hessian and reframed the adaptive 
+rounding problem as a greedy weight-by-weight optimization. See you there! 👋
 
-This post traced why rounding direction matters: a stochastic rounding experiment on a single ResNet-18 layer found assignments that beat round-to-nearest by over 10 points, just by choosing up vs. down more carefully. The second-order Taylor expansion showed that, for a converged network, quantization damage is governed almost entirely by the Hessian, and AdaRound makes that tractable with two simplifications (layer-wise, diagonal, constant-curvature) that collapse the objective to a simple asymmetric MSE between full-precision and quantized layer outputs. Each weight gets a learnable rounding variable, optimized layer by layer and pushed toward a hard decision by an annealed regularizer.
+Here's a quick summary of AdaRound's design choices:
 
-The cost is 10K–15K gradient steps per layer which is  fine for CNNs, but completely impractical for LLMs. In the next one, we'll look at BRECQ (Block Recontstruction Quantization) which extends AdaRound's layer-wise reconstruction to the level of a whole block (e.g. a residual block), and argues this granularity and not layerwise or full network reconstruction gives the best trade-off between capturing cross-layer dependencies and avoiding generalization error. See you there! 👋
+| Bit-width | Granularity | What's quantized | Compute precision |
+|---|---|---|---|
+| 4-bit or 8-bit | Per-channel | Weights only | FP16 |
 
 ## References
 1. [Up or Down? Adaptive Rounding for Post-Training Quantization](https://arxiv.org/abs/2004.10568)
