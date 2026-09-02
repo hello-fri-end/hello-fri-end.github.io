@@ -3,7 +3,7 @@ date: 2026-09-02
 category: Quantization
 Tags: Quantization, Integer Quantization, Deep Learning, Optimal Brain Quantizer, Model Compression, OBQ
 
-In Part 1, we looked at why rounding direction matters: a stochastic rounding experiment on a single ResNet-18 layer found assignments that beat round-to-nearest by over 10 points, just by choosing up vs. down more carefully. Then we looked into second order analysis of quantization, and reazlied that the damage is governed entirely by the Hessian, which is very expensive to compute for large models, and Adaround makes it tractable with three simplications: layer-wise, diagonal & constant curvature - this collapses the objective to a simple asymmetric M.S.E between the full-precision network and the quantized layer outputs. However, we also saw that Adaround requires 10k-15k gradient steps per layer to converge for 8 bits and 4 bits respectively.
+In [Part 1](https://hello-fri-end.github.io/2026/08/part-1-adaptive-rounding-adaround/), we looked at why rounding direction matters: a stochastic rounding experiment on a single ResNet-18 layer found assignments that beat round-to-nearest by over 10 points, just by choosing up vs. down more carefully. Then we looked into second order analysis of quantization, and reazlied that the damage is governed entirely by the Hessian, which is very expensive to compute for large models, and Adaround makes it tractable with three simplications: layer-wise, diagonal & constant curvature - this collapses the objective to a simple asymmetric M.S.E between the full-precision network and the quantized layer outputs. However, we also saw that Adaround requires 10k-15k gradient steps per layer to converge for 8 bits and 4 bits respectively.
 
 In this post and the next, we will look at OBQ and GPTQ -- the methods that made second-order adaptive rounding tractable at scale.
 
@@ -378,12 +378,12 @@ Consider a layer with weight matrix of size $4096 \times 4096$. For a
 single row, OBQ evaluates all 4096 unquantized weights via $\Delta L_p$, 
 selects the best, quantizes it, compensates the remaining 4095 weights, 
 and updates $\mathbf{H}^{-1}$. This is repeated 4096 times for all the columns. Across 
-4096 rows, the total work becomes enormous.
+4096 rows, and multiple layers, the total work becomes enormous.
 
 #### 2. Parallelism Across Rows Is Broken by Greedy Search
 
-In principle, each row of the weight matrix can be quantized independently. 
-The greedy search breaks this.
+In principle, each row of the weight matrix can be quantized independently but
+the greedy search breaks this.
 
 Suppose we quantize two rows simultaneously. Row 1's greedy search picks 
 column 1 first; row 2's picks column 200. After these decisions, the two 
