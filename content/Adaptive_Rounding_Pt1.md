@@ -88,8 +88,7 @@ $$
 \mathbb{E}\left[\mathrm{L}(\mathbf{x,y,w+\Delta w}) - \mathrm{L}(\mathbf{x,y,w})\right]
 $$
 
-This is exactly the setting the Taylor expansion motivation from before was built for, i.e: 
-
+This is exactly the setting the Taylor expansion motivation from before was built for, i.e.:
 $$
 \begin{aligned}
 \mathbb{E}\left[\mathrm{L}(\mathbf{x,y,w+\Delta w}) - \mathrm{L}(\mathbf{x,y,w})\right]
@@ -98,10 +97,10 @@ $$
 \end{aligned}
 $$
 
-Since, $\mathbf{w}$ has already converged via training, $\mathbf{g}^{(\mathbf{w})} \approx \mathbf{0}$. So the linear term drops out, and the loss degradation from quantization is governed almost entirely by the second, Hessian-dependent term:
+Since $\mathbf{w}$ has already converged via training, $\mathbf{g}^{(\mathbf{w})} \approx \mathbf{0}$. So the linear term drops out, and the loss degradation from quantization is governed almost entirely by the second, Hessian-dependent term:
 
 $$
-\mathbb{E}\left[\mathrm{L}(\mathbf{x,y,w+\Delta w}) - \mathrm{L}(\mathbf{x,y,w})\right] \approx \frac{1}{2}\Delta\mathbf{wG}^T \cdot \mathbf{H}^{(\mathbf{w})} \cdot \Delta\mathbf{w}
+\mathbb{E}\left[\mathrm{L}(\mathbf{x,y,w+\Delta w}) - \mathrm{L}(\mathbf{x,y,w})\right] \approx \frac{1}{2}\Delta\mathbf{w}^T \cdot \mathbf{H}^{(\mathbf{w})} \cdot \Delta\mathbf{w}
 $$
 
 <div class="paper-note">
