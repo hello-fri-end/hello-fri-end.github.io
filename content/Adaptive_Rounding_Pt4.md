@@ -162,15 +162,8 @@ We can't choose $\mathbf{H}$, but we can change coordinates. Before quantizing, 
 
 Thank you for reading! I hope this post showed that GPTQ and LDLQ are two framings of the same algorithm, one pushing errors forward and one pulling them in, and why the second framing is useful: it's cheaper, it gives a proof of optimality, and it shows exactly where the method fails. 
 
-There is one more limitation of GPTQ/LDLQ: they quantize each layer independently, completely ignoring inter-layer dependencies.In reality, each layer receives quantized activations from the previous layer. Therefore, the actual reconstruction problem we should be solving is:
-
-$$
-\min_{\hat{W}} \| \hat{X}W - \hat{X}\hat{W} \|_F^2
-$$
-
-where $\hat{X}$ is the quantized input from the previous layer and $\hat{W}$ represents the quantized weights.
-
-In the next post, we'll look at **Qronos**, which builds upon GPTQ by explicitly accounting for these inter-layer dependencies. See you there!
+There is one more limitation of GPTQ/LDLQ: they quantize each layer independently, completely ignoring inter-layer dependencies.
+In the next post, we look at **BRECQ**, which reconstructs at the "block-level" for CNNs and a lot of modern approaches have adapted the same for transformers to quantize them to even lower bitwidths. See you there!
 
 Here's a quick summary of LDLQ's design choices:
 
