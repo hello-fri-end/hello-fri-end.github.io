@@ -1,6 +1,7 @@
 title: Part 4: Adaptive Rounding: LDLQ
 date: 2026-11-20
 category: Quantization
+Tags: Quantization, Integer Quantization, Deep Learning, Optimal Brain Quantizer, Model Compression, OBQ, GPTQ, LDLQ, QuIP, 2 bit quantization
 
 In my [last post](https://hello-fri-end.github.io/2026/10/part-3-adaptive-rounding-gptq/), I covered GPTQ. GPTQ quantizes the columns of a layer in a simple left-to-right order and, after rounding each one, adjusts the remaining columns to absorb the rounding error incurred as much as possible. Lazy batch updates and the Cholesky reformulation then made this fast enough for models with billions of parameters.
 

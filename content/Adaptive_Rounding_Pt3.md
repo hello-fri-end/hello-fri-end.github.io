@@ -1,6 +1,7 @@
 title: Part 3: Adaptive Rounding: GPTQ
 date: 2026-10-07 
 category: Quantization
+Tags: Quantization, Integer Quantization, Deep Learning, Optimal Brain Quantizer, Model Compression, OBQ, GPTQ, OBTQ
 
 In my [last post](https://hello-fri-end.github.io/2026/09/part-2-adaptive-rounding-optimal-brain-quantizer-obq/), I covered Optimal Brain Quantizer (OBQ). OBQ breaks quantization into per-layer, row-wise subproblems: at each step it quantizes the weight that adds the least error, then compensates the remaining unquantized weights using a proxy Hessian. The catch is scalibility - the greedy search runs in $O(d^2)$ per row (at each step you evaluate all remaining weights), and since different rows quantize in different column orders, they require separate Hessian copies to parallelize, making the algorithm memory-bound at scale.
 

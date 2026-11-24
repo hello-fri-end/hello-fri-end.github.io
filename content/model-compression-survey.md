@@ -1,6 +1,7 @@
 Title: Model Compression: A Survey of Techniques
 Date: 2024-08-10 
 Category: Compression
+Tags: Quantization, Integer Quantization, Deep Learning, Inference, Model Compression, Outliers, Distillation, Pruning
 
 Machine Learning (ML) has witnessed a surge in interest in recent years driven by the availability of large-scale datasets, advances in ML frameworks such as PyTorch and TensorFlow, rise of hardware accelerators (e.g., GPUs and TPUs) that enable large-scale training, and the development of increasingly powerful neural network architectures. Together, these factors have enabled the creation of highly capable models with wide ranges of applications.
 
